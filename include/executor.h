@@ -3,6 +3,7 @@
 #include <chrono>
 #include <future>
 #include <iterator>
+#include <iostream>
 #include <sstream>
 #include <thread>
 
@@ -143,6 +144,7 @@ namespace azure {  namespace storage_lite {
                         {
                             auto error = context->xml_parser()->parse_storage_error(str);
                             error.code = std::to_string(result);
+                            std::cout << "Error: " <<  error.code << "\n";
                             *outcome = storage_outcome<void>(error);
                             retry->add_result(code == CURLE_OK ? result: 503);
                             http->reset_input_stream();
